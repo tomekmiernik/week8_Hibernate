@@ -3,15 +3,18 @@ package com.example.week8.dto;
 import com.example.week8.model.Note;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Component
 public class AuthorDto {
 
-    private long userId;
+    private long authorId;
 
+    @NotEmpty(message = "Ta wartość jest wymagana")
     private String firstName;
 
+    @NotEmpty(message = "Ta wartość jest wymagana")
     private String lastName;
 
     private List<Note> noteList;
@@ -19,19 +22,19 @@ public class AuthorDto {
     public AuthorDto() {
     }
 
-    public AuthorDto(long userId, String firstName, String lastName, List<Note> noteList) {
-        this.userId = userId;
+    public AuthorDto(long authorId, String firstName, String lastName, List<Note> noteList) {
+        this.authorId = authorId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noteList = noteList;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setAuthorId(long authorId) {
+        this.authorId = authorId;
     }
 
     public String getFirstName() {

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+<body>
+
+<h2>Autor</h2>
+<div>
+    <form th:action="@{'/author'}" th:method="post" th:object="${authorDto}">
+
+        <label for="firstName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('firstName')}"
+               th:errors="*{firstName}"></label>
+        <input id="firstName" type="text" name="firstName" placeholder="podaj imię">
+
+        <label for="lastName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('lastName')}"
+               th:errors="*{lastName}"></label>
+        <input id="lastName" name="lastName" placeholder="podaj nazwisko">
+
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<h2>Notatka</h2>
+<div>
+    <form th:action="@{'/note'}" th:method="post" th:object="${noteDto}">
+
+        <label for="noteTitle" style="color: #FF0000"
+               th:if="${#fields.hasErrors('noteTitle')}"
+               th:errors="*{noteTitle}"></label>
+        <input id="noteTitle" type="text" name="noteTitle" placeholder="tytuł notatki">
+
+        <label for="noteContent" style="color: #FF0000"
+               th:if="${#fields.hasErrors('noteContent')}"
+               th:errors="*{noteContent}"></label>
+        <textarea id="noteContent" name="noteContent" placeholder="treść notatki"></textarea>
+
+        <label for="author" style="color: #FF0000"
+               th:if="${#fields.hasErrors('author')}"
+               th:errors="*{author}"></label>
+        <select id="author" name="author">
+            <option disabled selected value="">Autor</option>
+            <option th:each="a : ${authors}"
+                    th:text="${a.getFirstName() +' '+ a.getLastName()}"
+                    th:value="${a.getAuthorId()}">
+            </option>
+        </select>
+
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <table>
+        <tr>
+            <th>Tytuł notatki</th>
+            <th>Treść notatki</th>
+            <th>Data utworzenia</th>
+            <th>Data edycji</th>
+            <th>Autor</th>
+        </tr>
+        <tr th:each="n : ${notes}">
+            <td th:text="${n.getNoteTitle()}"></td>
+            <td th:text="${n.getNoteContent()}"></td>
+            <td th:text="${n.getNoteCreationDate()}"></td>
+            <td th:text="${n.getNoteEditionDate()}"></td>
+            <td th:text="${n.getAuthor().getFirstName() + ' '+ n.getAuthor().getLastName()}"></td>
+
+            <td>
+                <a th:href="@{'/updateNote/' +${n.getNoteId()}}">Edytuj</a>
+            </td>
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${n.getNoteId()}" name="noteId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

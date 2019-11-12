@@ -22,6 +22,7 @@ public class NoteService {
     }
 
     public void addNewNote(NoteDto noteDto) {
+        noteDto.setNoteCreationDate(LocalDateTime.now());
         noteRepository.save(noteMapper.reverse(noteDto));
     }
 

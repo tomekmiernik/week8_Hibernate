@@ -87,7 +87,7 @@ public class Note {
         this.author = author;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Note{" +
                 "noteId=" + noteId +
@@ -97,5 +97,5 @@ public class Note {
                 ", noteEditionDate=" + noteEditionDate +
                 ", userApp=" + author +
                 '}';
-    }
+    }*/
 }

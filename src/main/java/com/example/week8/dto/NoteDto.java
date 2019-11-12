@@ -10,9 +10,10 @@ public class NoteDto {
 
     private long noteId;
 
-    @NotEmpty
+    @NotEmpty(message = "Ta wartość jest wymagana")
     private String noteTitle;
-    @NotEmpty
+
+    @NotEmpty(message = "Ta wartość jest wymagana")
     private String noteContent;
 
     private LocalDateTime noteCreationDate;

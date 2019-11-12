@@ -17,7 +17,7 @@ public class Author {
     @Column
     private String lastName;
 
-    @OneToMany(mappedBy = "userApp")
+    @OneToMany(mappedBy = "author")
     private List<Note> noteList;
 
 
@@ -62,7 +62,7 @@ public class Author {
         this.noteList = noteList;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Author{" +
                 "authorId=" + authorId +
@@ -70,5 +70,5 @@ public class Author {
                 ", lastName='" + lastName + '\'' +
                 ", noteList=" + noteList +
                 '}';
-    }
+    }*/
 }

@@ -9,7 +9,7 @@ public class AuthorMapper implements Mapper<Author, AuthorDto> {
     @Override
     public AuthorDto map(Author from) {
         AuthorDto newAuthorDto = new AuthorDto();
-        newAuthorDto.setUserId(from.getAuthorId());
+        newAuthorDto.setAuthorId(from.getAuthorId());
         newAuthorDto.setFirstName(from.getFirstName());
         newAuthorDto.setLastName(from.getLastName());
         newAuthorDto.setNoteList(from.getNoteList());
@@ -19,7 +19,7 @@ public class AuthorMapper implements Mapper<Author, AuthorDto> {
     @Override
     public Author reverse(AuthorDto to) {
         Author newAuthor = new Author();
-        newAuthor.setAuthorId(to.getUserId());
+        newAuthor.setAuthorId(to.getAuthorId());
         newAuthor.setFirstName(to.getFirstName());
         newAuthor.setLastName(to.getLastName());
         newAuthor.setNoteList(to.getNoteList());
