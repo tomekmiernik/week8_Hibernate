@@ -1,6 +1,7 @@
 package com.example.week8.service;
 
 import com.example.week8.dto.NoteDto;
+import com.example.week8.model.Note;
 import com.example.week8.repository.NoteRepository;
 import com.example.week8.util.NoteMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,24 @@ public class NoteService {
                 .collect(Collectors.toList());
     }
 
-    public void updateNote(long noteId, String noteTitle, String noteContent) {
-        NoteDto updateNote = noteMapper.map(noteRepository.getOne(noteId));
-        updateNote.setNoteTitle(noteTitle);
-        updateNote.setNoteContent(noteContent);
-        updateNote.setNoteEditionDate(LocalDateTime.now());
-        noteRepository.save(noteMapper.reverse(updateNote));
+    public void updateNote(NoteDto noteDto) {
+        noteRepository.getNoteByNoteId(noteDto.getNoteId())
+                .ifPresent(n -> {
+                    n.setNoteTitle(noteDto.getNoteTitle());
+                    n.setNoteContent(noteDto.getNoteContent());
+                    n.setNoteEditionDate(LocalDateTime.now());
+                    noteRepository.save(n);
+                });
     }
 
     public void deleteNote(long noteId) {
         noteRepository.findById(noteId).ifPresent(n ->
                 noteRepository.delete(n)
         );
+    }
+
+    public NoteDto getNodeById(long noteId) {
+        Note getNote = noteRepository.getOne(noteId);
+        return noteMapper.map(getNote);
     }
 }
