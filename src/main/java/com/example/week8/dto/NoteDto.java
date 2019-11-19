@@ -1,11 +1,14 @@
 package com.example.week8.dto;
 
+
 import com.example.week8.model.Author;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Component
 public class NoteDto {
 
     private long noteId;
@@ -20,7 +23,6 @@ public class NoteDto {
 
     private LocalDateTime noteEditionDate;
 
-    @NotNull
     private Author author;
 
     public NoteDto() {

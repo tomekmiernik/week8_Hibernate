@@ -1,8 +1,11 @@
 package com.example.week8.service;
 
+import com.example.week8.dto.AuthorDto;
 import com.example.week8.dto.NoteDto;
+import com.example.week8.model.Author;
 import com.example.week8.model.Note;
 import com.example.week8.repository.NoteRepository;
+import com.example.week8.util.AuthorMapper;
 import com.example.week8.util.NoteMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,10 @@ public class NoteService {
     private NoteRepository noteRepository;
     private NoteMapper noteMapper;
 
+
     @Autowired
-    public NoteService(NoteRepository noteRepository, NoteMapper noteMapper) {
+    public NoteService(NoteRepository noteRepository,
+                       NoteMapper noteMapper) {
         this.noteRepository = noteRepository;
         this.noteMapper = noteMapper;
     }
@@ -50,8 +55,13 @@ public class NoteService {
         );
     }
 
-    public NoteDto getNodeById(long noteId) {
+    public NoteDto getNoteById(long noteId) {
         Note getNote = noteRepository.getOne(noteId);
         return noteMapper.map(getNote);
+    }
+
+    public Author getAuthorByNoteById(long noteId) {
+        Note getNote = noteRepository.getOne(noteId);
+        return getNote.getAuthor();
     }
 }

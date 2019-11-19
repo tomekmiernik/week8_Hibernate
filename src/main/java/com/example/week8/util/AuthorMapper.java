@@ -5,7 +5,7 @@ import com.example.week8.model.Author;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthorMapper implements Mapper<Author, AuthorDto> {
+public class AuthorMapper implements Mapper<Author, com.example.week8.dto.AuthorDto> {
     @Override
     public AuthorDto map(Author from) {
         AuthorDto newAuthorDto = new AuthorDto();

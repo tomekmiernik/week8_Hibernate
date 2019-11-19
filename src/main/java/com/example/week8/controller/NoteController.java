@@ -40,20 +40,22 @@ public class NoteController {
             return getMainPage(model);
         } else {
             noteService.addNewNote(noteDto);
-            return "redirect:" + getMainPage(model);
+            return "redirect:/";
         }
     }
 
     @GetMapping("/updateNote/{noteId}")
     public String getFormToUpdateNote(@PathVariable("noteId") long noteId, Model model) {
-        model.addAttribute("noteDto", noteService.getNodeById(noteId));
+        model.addAttribute("noteDto", noteService.getNoteById(noteId));
+        model.addAttribute("authorDto", noteService.getAuthorByNoteById(noteId));
+
         return "updateNote";
     }
 
 
     /*There was an unexpected error (type=Method Not Allowed, status=405).
         Request method 'POST' not supported*/
-    @PutMapping("/updateNote")
+    @PostMapping("/updateNote")
     public String updateNote(@ModelAttribute("noteDto") @Valid NoteDto noteDto,
                              BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -62,7 +64,7 @@ public class NoteController {
             return getMainPage(model);
         } else {
             noteService.updateNote(noteDto);
-            return "redirect:" + getMainPage(model);
+            return "redirect:/";
         }
     }
 
@@ -72,7 +74,7 @@ public class NoteController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("info", "Coś poszło nie tak!");
             initializeAttributes(model);
-            return "main";
+            return getMainPage(model);
         } else {
             authorService.addNewAuthor(authorDto);
             return "redirect:/";
